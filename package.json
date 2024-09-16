@@ -3,7 +3,7 @@
   "description": "nil-chain client side utils",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "MIT",
   "files": [
     "dist",
