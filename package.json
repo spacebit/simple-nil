@@ -1,10 +1,33 @@
 {
+  "name": "simple-nil",
+  "description": "nil-chain client side utils",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "version": "0.0.4",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist",
-    "prepublishOnly": "yarn build"
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "prepublishOnly": "yarn build",
+    "release": "standard-version",
+    "publish:npm": "yarn publish",
+    "release:publish": "yarn release && yarn publish:npm"
+  },
+  "dependencies": {
+    "@nilfoundation/niljs": "^0.13.0",
+    "abitype": "^1.0.6",
+    "ts-essentials": "^10.0.2",
+    "viem": "^2.21.7"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "standard-version": "^9.5.0",
+    "typescript": "^5.6.2"
   }
 }
