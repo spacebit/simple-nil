@@ -1,6 +1,8 @@
 # Nil client utils
 
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+[![npm version](https://img.shields.io/npm/v/simple-nil.svg)](https://www.npmjs.com/package/simple-nil)
+
 
 This package is intended to simplify interaction with the Nil Chain during its DevNet phase and will probably be deprecated with the evolution of Nil.js
 
@@ -38,7 +40,7 @@ This package is intended to simplify interaction with the Nil Chain during its D
 Ensure you have [Yarn](https://yarnpkg.com/) installed. Then, install the package using Yarn:
 
 ```bash
-yarn add your-package-name
+yarn add simple-nil
 ```
 
 ### Peer Dependencies
@@ -107,7 +109,7 @@ console.log("Initialized XWallet:", wallet.address);
 #### Self-deployment
 
 ```ts
-import { XWallet, XClient } from "your-package-name";
+import { XWallet, XClient } from "simple-nil";
 
 const client = new XClient({
   shardId: 1,
@@ -151,8 +153,8 @@ const contract = XContract.connect(wallet, abi, contractAddress);
 #### Deploying a New Contract
 
 ```ts
-import { XContract } from "your-package-name";
-import { XWallet } from "your-package-name";
+import { XContract } from "simple-nil";
+import { XWallet } from "simple-nil";
 
 // Assuming you have an initialized XWallet instance
 const wallet = await XWallet.init(options);
