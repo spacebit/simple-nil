@@ -1,4 +1,6 @@
 {
+  "name": "simple-nil",
+  "description": "nil-chain client side utils",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
