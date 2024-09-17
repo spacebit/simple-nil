@@ -22,7 +22,7 @@ import {
 import { expectAllReceiptsSuccess } from './utils';
 import { prepareDeployPart } from './utils/deployPart';
 import { XClient } from './XClient';
-import XWalletArtifacts from './XWallet.json';
+import XWalletArtifacts from './abi/XWallet.json';
 
 export class XWallet implements IWallet {
   private constructor(
