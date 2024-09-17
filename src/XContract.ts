@@ -1,6 +1,6 @@
 import { Hex } from '@nilfoundation/niljs';
-import { Abi } from 'abitype';
 import {
+  Abi,
   ContractConstructorArgs,
   ContractFunctionName,
   decodeFunctionResult,
@@ -14,8 +14,8 @@ import { expectAllReceiptsSuccess } from './utils/receipt';
 
 export class XContract<T extends Abi> {
   constructor(
-    private wallet: XWallet,
     private abi: T,
+    private wallet: XWallet,
     public address: Hex,
   ) {}
 
@@ -24,7 +24,7 @@ export class XContract<T extends Abi> {
     abi: T,
     address: Hex,
   ): XContract<T> {
-    return new XContract(wallet, abi, address);
+    return new XContract(abi, wallet, address);
   }
 
   static async deploy<T extends Abi>(
@@ -45,11 +45,11 @@ export class XContract<T extends Abi> {
 
     expectAllReceiptsSuccess(receipts);
 
-    return new XContract(wallet, artifact.abi, address);
+    return new XContract(artifact.abi, wallet, address);
   }
 
   connect(wallet: XWallet) {
-    return new XContract(wallet, this.abi, this.address);
+    return new XContract(this.abi, wallet, this.address);
   }
 
   async sendMessage<functionName extends ContractFunctionName<T>>(

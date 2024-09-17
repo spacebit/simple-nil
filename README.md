@@ -47,13 +47,10 @@ yarn add simple-nil
 
 This package relies on the following peer dependencies. Ensure they are installed in your project:
 
-@nilfoundation/niljs
-viem
-abitype
 Install them using Yarn:
 
 ```sh
-yarn add @nilfoundation/niljs viem abitype
+yarn add @nilfoundation/niljs viem
 ```
 
 ## Getting Started

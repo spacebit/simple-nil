@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "@nilfoundation/niljs": "^0.13.0",
-    "abitype": "^1.0.6",
     "events": "^3.3.0",
     "ts-essentials": "^10.0.2",
     "viem": "^2.21.7"

@@ -7,6 +7,7 @@ import {
   LocalECDSAKeySigner,
   PublicClient,
 } from '@nilfoundation/niljs';
+import { XClientConfig } from './types';
 
 export class XClient {
   client: PublicClient;
@@ -14,12 +15,8 @@ export class XClient {
   rpc: string;
   signer?: LocalECDSAKeySigner;
 
-  constructor(config: {
-    shardId: number;
-    rpc: string;
-    signerPrivateKey?: Hex;
-  }) {
-    const { shardId, rpc, signerPrivateKey } = config;
+  constructor(config: XClientConfig) {
+    const { shardId, rpc, signerOrPrivateKey } = config;
     this.client = new PublicClient({
       shardId: shardId,
       transport: new HttpTransport({ endpoint: rpc }),
@@ -27,16 +24,21 @@ export class XClient {
 
     this.shardId = shardId;
     this.rpc = rpc;
-    if (signerPrivateKey) {
-      this.signer = new LocalECDSAKeySigner({ privateKey: signerPrivateKey });
+    if (signerOrPrivateKey) {
+      typeof signerOrPrivateKey === 'string'
+        ? (this.signer = new LocalECDSAKeySigner({
+            privateKey: signerOrPrivateKey,
+          }))
+        : (this.signer = signerOrPrivateKey);
     }
   }
 
-  connect(signerPrivateKey: Hex) {
+  connect(config: Partial<XClientConfig>) {
     return new XClient({
       shardId: this.shardId,
       rpc: this.rpc,
-      signerPrivateKey,
+      signerOrPrivateKey: this.signer,
+      ...config,
     });
   }
 
@@ -45,7 +47,7 @@ export class XClient {
     calldata: Hex,
     isDeploy: boolean,
   ): Promise<Hex> {
-    if (!this.signer) throw Error('Client has no signer');
+    if (!this.signer) throw Error('The client has no signer');
 
     const { seqno, chainId } = await this.getCallParams(address);
 
