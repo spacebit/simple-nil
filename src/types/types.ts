@@ -1,15 +1,35 @@
-import { Hex } from '@nilfoundation/niljs';
-import { Abi } from 'abitype';
+import {
+  Hex,
+  LocalECDSAKeySigner,
+  PublicClient,
+  SendMessageParams,
+} from '@nilfoundation/niljs';
+import { Abi } from 'viem';
+
+export interface IClient {
+  call: (
+    ...args: Parameters<PublicClient['call']>
+  ) => Promise<ReturnType<PublicClient['call']>>;
+}
+
+export interface IWallet {
+  deployContract: (params: DeployParams) => any;
+  sendMessage: (params: SendMessageParams) => any;
+  client: IClient;
+}
+
+export interface XClientConfig {
+  shardId: number;
+  rpc: string;
+  signerOrPrivateKey?: LocalECDSAKeySigner | Hex;
+}
 
 /**
  * Options for initializing the XWallet.
  */
-export type XWalletOptions = {
+export interface XWalletConfig extends Required<XClientConfig> {
   address: Hex;
-  rpc: string;
-  signerPrivateKey: Hex;
-  shardId: number;
-};
+}
 
 /**
  * Represents a currency with an ID and amount.

@@ -7,19 +7,16 @@ import {
   LocalECDSAKeySigner,
   PublicClient,
 } from '@nilfoundation/niljs';
+import { IClient, XClientConfig } from './types';
 
-export class XClient {
+export class XClient implements IClient {
   client: PublicClient;
   shardId: number;
   rpc: string;
   signer?: LocalECDSAKeySigner;
 
-  constructor(config: {
-    shardId: number;
-    rpc: string;
-    signerPrivateKey?: Hex;
-  }) {
-    const { shardId, rpc, signerPrivateKey } = config;
+  constructor(config: XClientConfig) {
+    const { shardId, rpc, signerOrPrivateKey } = config;
     this.client = new PublicClient({
       shardId: shardId,
       transport: new HttpTransport({ endpoint: rpc }),
@@ -27,25 +24,30 @@ export class XClient {
 
     this.shardId = shardId;
     this.rpc = rpc;
-    if (signerPrivateKey) {
-      this.signer = new LocalECDSAKeySigner({ privateKey: signerPrivateKey });
+    if (signerOrPrivateKey) {
+      typeof signerOrPrivateKey === 'string'
+        ? (this.signer = new LocalECDSAKeySigner({
+            privateKey: signerOrPrivateKey,
+          }))
+        : (this.signer = signerOrPrivateKey);
     }
   }
 
-  connect(signerPrivateKey: Hex) {
+  connect(config: Partial<XClientConfig>) {
     return new XClient({
       shardId: this.shardId,
       rpc: this.rpc,
-      signerPrivateKey,
+      signerOrPrivateKey: this.signer,
+      ...config,
     });
   }
 
-  async callExternal(
+  async sendRawMessage(
     address: Hex,
     calldata: Hex,
     isDeploy: boolean,
   ): Promise<Hex> {
-    if (!this.signer) throw Error('Client has no signer');
+    if (!this.signer) throw Error('The client has no signer');
 
     const { seqno, chainId } = await this.getCallParams(address);
 
@@ -61,6 +63,12 @@ export class XClient {
     );
 
     return this.client.sendRawMessage(raw);
+  }
+
+  async call(
+    ...args: Parameters<PublicClient['call']>
+  ): Promise<ReturnType<PublicClient['call']>> {
+    return this.client.call(...args);
   }
 
   async getCurrencies(address: Hex, blockTagOrHash: Hex | BlockTag = 'latest') {

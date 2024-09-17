@@ -1,14 +1,14 @@
-# Nil client utils
+# nil client utils
 
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 [![npm version](https://img.shields.io/npm/v/simple-nil.svg)](https://www.npmjs.com/package/simple-nil)
 
 
-This package is intended to simplify interaction with the Nil Chain during its DevNet phase and will probably be deprecated with the evolution of Nil.js
+This package is intended to simplify interaction with Nil blockchain during its DevNet phase and will probably be deprecated with the evolution of Nil.js
 
 ## Table of Contents
 
-- [Nil client utils](#nil-client-utils)
+- [nil client utils](#nil-client-utils)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Installation](#installation)
@@ -16,7 +16,7 @@ This package is intended to simplify interaction with the Nil Chain during its D
   - [Getting Started](#getting-started)
     - [XClient](#xclient)
       - [Initialization](#initialization)
-      - [Connecting with a Signer](#connecting-with-a-signer)
+      - [Connecting with a different config](#connecting-with-a-different-config)
     - [XWallet](#xwallet)
       - [Initialization](#initialization-1)
       - [Self-deployment](#self-deployment)
@@ -47,13 +47,10 @@ yarn add simple-nil
 
 This package relies on the following peer dependencies. Ensure they are installed in your project:
 
-@nilfoundation/niljs
-viem
-abitype
 Install them using Yarn:
 
 ```sh
-yarn add @nilfoundation/niljs viem abitype
+yarn add @nilfoundation/niljs viem
 ```
 
 ## Getting Started
@@ -70,19 +67,22 @@ import { XClient } from "simple-nil";
 const client = new XClient({
   shardId: 1,
   rpc: "https://rpc.endpoint.com",
-  signerPrivateKey:
+  signerOrPrivateKey:
     "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
 });
 ```
 
-#### Connecting with a Signer
+#### Connecting with a different config
 
-If you need to connect the client with a different signer (private key), you can use the connect method:
+If you need to connect the client with a different signer (private key), shardId or rpc, you can use the `connect` method:
 
 ```ts
 const newSignerPrivateKey =
   "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef";
-const connectedClient = client.connect(newSignerPrivateKey);
+
+const newClient = client.connect({
+  signerOrPrivateKey: newSignerPrivateKey
+});
 ```
 
 ### XWallet
@@ -92,17 +92,16 @@ The XWallet class provides functionalities to manage and interact with an XWalle
 #### Initialization
 
 ```ts
-import { XWallet, XWalletOptions } from "simple-nil";
+import { XWallet } from "simple-nil";
+import { XWalletConfig } from "simple-nil/types";
 
-const options: XWalletOptions = {
+const wallet = await XWallet.init({
   address: "0x1234567890abcdef1234567890abcdef12345678",
   rpc: "https://rpc.endpoint.com",
-  signerPrivateKey:
+  signerOrPrivateKey:
     "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
   shardId: 1,
-};
-
-const wallet = await XWallet.init(options);
+});
 console.log("Initialized XWallet:", wallet.address);
 ```
 
@@ -111,16 +110,11 @@ console.log("Initialized XWallet:", wallet.address);
 ```ts
 import { XWallet, XClient } from "simple-nil";
 
-const client = new XClient({
+const deployedWallet = await XWallet.deploy({
   shardId: 1,
   rpc: "https://rpc.endpoint.com",
-  signerPrivateKey:
+  signerOrPrivateKey:
     "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
-});
-
-const deployedWallet = await XWallet.deploy({
-  client,
-  shardId: 1,
 });
 console.log("Deployed XWallet Address:", deployedWallet.address);
 ```
@@ -132,8 +126,7 @@ The XContract class provides functionalities to interact with deployed smart con
 #### Connecting to an Existing Contract
 
 ```ts
-import { XContract } from "simple-nil";
-import { XWallet } from "simple-nil";
+import { XContract, XWallet } from "simple-nil";
 
 // Assuming you have an initialized XWallet instance
 const wallet = await XWallet.init(options);
@@ -153,8 +146,7 @@ const contract = XContract.connect(wallet, abi, contractAddress);
 #### Deploying a New Contract
 
 ```ts
-import { XContract } from "simple-nil";
-import { XWallet } from "simple-nil";
+import { XContract, XWallet } from "simple-nil";
 
 // Assuming you have an initialized XWallet instance
 const wallet = await XWallet.init(options);
