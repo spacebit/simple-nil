@@ -8,19 +8,18 @@ import {
   encodeFunctionData,
   EncodeFunctionDataParameters,
 } from 'viem';
-import { XWallet } from './XWallet';
-import { MessageTokens } from './types';
+import { IWallet, MessageTokens } from './types';
 import { expectAllReceiptsSuccess } from './utils/receipt';
 
 export class XContract<T extends Abi> {
   constructor(
     private abi: T,
-    private wallet: XWallet,
+    private wallet: IWallet,
     public address: Hex,
   ) {}
 
   static connect<T extends Abi>(
-    wallet: XWallet,
+    wallet: IWallet,
     abi: T,
     address: Hex,
   ): XContract<T> {
@@ -28,7 +27,7 @@ export class XContract<T extends Abi> {
   }
 
   static async deploy<T extends Abi>(
-    wallet: XWallet,
+    wallet: IWallet,
     artifact: { abi: T; bytecode: Hex },
     args: ContractConstructorArgs<T>,
     shardId: number,
@@ -48,7 +47,7 @@ export class XContract<T extends Abi> {
     return new XContract(artifact.abi, wallet, address);
   }
 
-  connect(wallet: XWallet) {
+  connect(wallet: IWallet) {
     return new XContract(this.abi, wallet, this.address);
   }
 
@@ -77,7 +76,7 @@ export class XContract<T extends Abi> {
   async call<functionName extends ContractFunctionName<T>>(
     params: Omit<EncodeFunctionDataParameters<T, functionName>, 'abi'>,
   ) {
-    const { data } = await this.wallet.client.client.call(
+    const { data } = await this.wallet.client.call(
       {
         to: this.address,
         data: encodeFunctionData({

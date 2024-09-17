@@ -1,5 +1,22 @@
-import { Hex, LocalECDSAKeySigner } from '@nilfoundation/niljs';
+import {
+  Hex,
+  LocalECDSAKeySigner,
+  PublicClient,
+  SendMessageParams,
+} from '@nilfoundation/niljs';
 import { Abi } from 'viem';
+
+export interface IClient {
+  call: (
+    ...args: Parameters<PublicClient['call']>
+  ) => Promise<ReturnType<PublicClient['call']>>;
+}
+
+export interface IWallet {
+  deployContract: (params: DeployParams) => any;
+  sendMessage: (params: SendMessageParams) => any;
+  client: IClient;
+}
 
 export interface XClientConfig {
   shardId: number;

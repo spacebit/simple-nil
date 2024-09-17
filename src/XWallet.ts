@@ -12,13 +12,19 @@ import {
   waitTillCompleted,
 } from '@nilfoundation/niljs';
 import { Abi, encodeFunctionData, hexToBigInt } from 'viem';
-import { Currency, DeployParams, XClientConfig, XWalletConfig } from './types';
+import {
+  Currency,
+  DeployParams,
+  IWallet,
+  XClientConfig,
+  XWalletConfig,
+} from './types';
 import { expectAllReceiptsSuccess } from './utils';
 import { prepareDeployPart } from './utils/deployPart';
 import { XClient } from './XClient';
 import XWalletArtifacts from './XWallet.json';
 
-export class XWallet {
+export class XWallet implements IWallet {
   private constructor(
     readonly address: Hex,
     readonly client: XClient,
@@ -59,7 +65,7 @@ export class XWallet {
     const faucet = new Faucet(client.client);
     await faucet.withdrawToWithRetry(bytesToHex(address), 10n ** 15n);
 
-    const messageHash = await client.callExternal(
+    const messageHash = await client.sendRawMessage(
       bytesToHex(address),
       bytesToHex(data),
       true,
@@ -82,7 +88,7 @@ export class XWallet {
       args: [spender, currencies],
     });
 
-    return this.callWaitResult(approveCalldata);
+    return this._callWaitResult(approveCalldata);
   }
 
   async createCurrency(amount: bigint) {
@@ -92,7 +98,7 @@ export class XWallet {
       args: [amount],
     });
 
-    const receipts = await this.callWaitResult(createCurrencyCalldata);
+    const receipts = await this._callWaitResult(createCurrencyCalldata);
     const currencyId = hexToBigInt(this.address);
 
     return { receipts, currencyId };
@@ -160,18 +166,18 @@ export class XWallet {
       ],
     });
 
-    return this.callWaitResult(callData);
+    return this._callWaitResult(callData);
   }
 
-  private async callExternal(calldata: Hex, isDeploy = false) {
-    return this.client.callExternal(this.address, calldata, isDeploy);
+  private async _callExternal(calldata: Hex, isDeploy = false) {
+    return this.client.sendRawMessage(this.address, calldata, isDeploy);
   }
 
-  private async callWaitResult(
+  private async _callWaitResult(
     calldata: Hex,
     isDeploy = false,
   ): Promise<ProcessedReceipt[]> {
-    const messageHash = await this.callExternal(calldata, isDeploy);
+    const messageHash = await this._callExternal(calldata, isDeploy);
 
     return waitTillCompleted(this.client.client, this.shardId, messageHash);
   }

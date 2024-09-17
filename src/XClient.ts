@@ -7,9 +7,9 @@ import {
   LocalECDSAKeySigner,
   PublicClient,
 } from '@nilfoundation/niljs';
-import { XClientConfig } from './types';
+import { IClient, XClientConfig } from './types';
 
-export class XClient {
+export class XClient implements IClient {
   client: PublicClient;
   shardId: number;
   rpc: string;
@@ -42,7 +42,7 @@ export class XClient {
     });
   }
 
-  async callExternal(
+  async sendRawMessage(
     address: Hex,
     calldata: Hex,
     isDeploy: boolean,
@@ -63,6 +63,12 @@ export class XClient {
     );
 
     return this.client.sendRawMessage(raw);
+  }
+
+  async call(
+    ...args: Parameters<PublicClient['call']>
+  ): Promise<ReturnType<PublicClient['call']>> {
+    return this.client.call(...args);
   }
 
   async getCurrencies(address: Hex, blockTagOrHash: Hex | BlockTag = 'latest') {
