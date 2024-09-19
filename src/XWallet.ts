@@ -4,6 +4,7 @@ import {
   bytesToHex,
   Faucet,
   getPublicKey,
+  getShardIdFromAddress,
   Hex,
   hexToBytes,
   ProcessedReceipt,
@@ -28,7 +29,6 @@ export class XWallet implements IWallet {
   private constructor(
     readonly address: Hex,
     readonly client: XClient,
-    readonly shardId: number,
   ) {}
 
   static abi = XWalletArtifacts.abi as Abi;
@@ -36,12 +36,12 @@ export class XWallet implements IWallet {
 
   static async init(config: XWalletConfig) {
     const client = new XClient({
-      shardId: config.shardId,
+      shardId: getShardIdFromAddress(config.address),
       rpc: config.rpc,
       signerOrPrivateKey: config.signerOrPrivateKey,
     });
 
-    return new XWallet(config.address, client, config.shardId);
+    return new XWallet(config.address, client);
   }
 
   static async deploy(config: Required<XClientConfig>) {
@@ -179,6 +179,6 @@ export class XWallet implements IWallet {
   ): Promise<ProcessedReceipt[]> {
     const messageHash = await this._callExternal(calldata, isDeploy);
 
-    return waitTillCompleted(this.client.client, this.shardId, messageHash);
+    return waitTillCompleted(this.client.client, getShardIdFromAddress(this.address), messageHash);
   }
 }
