@@ -39,9 +39,6 @@
     "format": "prettier --write .",
     "prepublishOnly": "yarn ci",
     "local-release": "changeset version && changeset publish",
-    "release": "standard-version",
-    "publish:npm": "yarn publish",
-    "release:publish": "yarn release && yarn publish:npm",
     "lint": "tsc",
     "ci": "yarn lint && yarn clean && yarn build && yarn check-format && yarn check-exports"
   },
