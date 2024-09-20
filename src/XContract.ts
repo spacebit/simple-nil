@@ -1,15 +1,15 @@
-import { Hex } from '@nilfoundation/niljs';
+import type { Hex } from '@nilfoundation/niljs';
 import {
-  Abi,
-  ContractConstructorArgs,
-  ContractFunctionName,
+  type Abi,
+  type ContractConstructorArgs,
+  type ContractFunctionName,
   decodeFunctionResult,
-  DecodeFunctionResultReturnType,
+  type DecodeFunctionResultReturnType,
   encodeFunctionData,
-  EncodeFunctionDataParameters,
+  type EncodeFunctionDataParameters,
 } from 'viem';
-import { IWallet, MessageTokens } from './types';
-import { expectAllReceiptsSuccess } from './utils/receipt';
+import type { IWallet, MessageTokens } from './types/index.js';
+import { expectAllReceiptsSuccess } from './utils/receipt.js';
 
 export class XContract<T extends Abi> {
   constructor(

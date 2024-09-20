@@ -1,10 +1,10 @@
 import {
-  Hex,
+  type Hex,
   LocalECDSAKeySigner,
   PublicClient,
-  SendMessageParams,
+  type SendMessageParams,
 } from '@nilfoundation/niljs';
-import { Abi } from 'viem';
+import type { Abi } from 'viem';
 
 export interface IClient {
   call: (

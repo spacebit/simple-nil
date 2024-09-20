@@ -1,5 +1,5 @@
-export { XWallet } from './XWallet';
-export { XClient } from './XClient';
-export { XContract } from './XContract';
-export type * from './types';
-export * as utils from './utils';
+export { XWallet } from './XWallet.js';
+export { XClient } from './XClient.js';
+export { XContract } from './XContract.js';
+export type * from './types/index.js';
+export * as utils from './utils/index.js';

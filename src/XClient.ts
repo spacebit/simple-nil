@@ -1,13 +1,13 @@
 import {
-  BlockTag,
+  type BlockTag,
   externalMessageEncode,
-  Hex,
+  type Hex,
   hexToBytes,
   HttpTransport,
   LocalECDSAKeySigner,
   PublicClient,
 } from '@nilfoundation/niljs';
-import { IClient, XClientConfig } from './types';
+import type { IClient, XClientConfig } from './types/index.js';
 
 export class XClient implements IClient {
   client: PublicClient;

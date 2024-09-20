@@ -1,23 +1,40 @@
 {
   "name": "simple-nil",
+  "version": "0.1.0",
   "description": "nil-chain client side utils",
+  "keywords": [
+    "nil",
+    "blockchain",
+    "client",
+    "contracts"
+  ],
+  "homepage": "https://github.com/spacebit/simple-nil",
+  "bugs": {
+    "url": "https://github.com/spacebit/simple-nil/issues"
+  },
+  "author": "Max Andreev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spacebit/simple-nil.git"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "version": "0.1.0",
   "license": "MIT",
   "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
+    "dist"
   ],
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist",
+    "check-format": "prettier --check .",
+    "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
     "prepublishOnly": "yarn build",
     "release": "standard-version",
     "publish:npm": "yarn publish",
-    "release:publish": "yarn release && yarn publish:npm"
+    "release:publish": "yarn release && yarn publish:npm",
+    "ci": "yarn build && yarn check-format && yarn check-exports"
   },
   "dependencies": {
     "@nilfoundation/niljs": "0.14.0",
@@ -25,7 +42,11 @@
     "ts-essentials": "^10.0.2",
     "viem": "^2.21.7"
   },
+  "peerDependencies": {
+    "abitype": "^1.0.6"
+  },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.16.4",
     "prettier": "^3.3.3",
     "standard-version": "^9.5.0",
     "typescript": "^5.6.2"
