@@ -11,13 +11,9 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
-    "module": "NodeNext",
-    "moduleResolution": "nodeNext",
-    "outDir": "dist",
-    "sourceMap": true,
-    "declaration": true,
-    "declarationDir": "dist",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"]
+    "module": "Preserve",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "noEmit": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "**/__tests__/*"]

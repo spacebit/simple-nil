@@ -7,7 +7,7 @@ import {
   LocalECDSAKeySigner,
   PublicClient,
 } from '@nilfoundation/niljs';
-import type { IClient, XClientConfig } from './types/index.js';
+import type { IClient, XClientConfig } from './types';
 
 export class XClient implements IClient {
   client: PublicClient;

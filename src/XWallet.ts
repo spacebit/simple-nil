@@ -20,10 +20,10 @@ import type {
   IWallet,
   XClientConfig,
   XWalletConfig,
-} from './types/index.js';
-import { prepareDeployPart } from './utils/deployPart.js';
-import { expectAllReceiptsSuccess } from './utils/index.js';
-import { XClient } from './XClient.js';
+} from './types';
+import { prepareDeployPart } from './utils/deployPart';
+import { expectAllReceiptsSuccess } from './utils';
+import { XClient } from './XClient';
 
 export class XWallet implements IWallet {
   private constructor(

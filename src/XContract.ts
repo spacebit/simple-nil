@@ -8,8 +8,8 @@ import {
   encodeFunctionData,
   type EncodeFunctionDataParameters,
 } from 'viem';
-import type { IWallet, MessageTokens } from './types/index.js';
-import { expectAllReceiptsSuccess } from './utils/receipt.js';
+import type { IWallet, MessageTokens } from './types';
+import { expectAllReceiptsSuccess } from './utils/receipt';
 
 export class XContract<T extends Abi> {
   constructor(

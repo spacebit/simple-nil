@@ -1,2 +1,2 @@
-export { expectAllReceiptsSuccess } from './receipt.js';
-export { prepareDeployPart } from './deployPart.js';
+export { expectAllReceiptsSuccess } from './receipt';
+export { prepareDeployPart } from './deployPart';

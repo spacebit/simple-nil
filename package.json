@@ -23,47 +23,49 @@
       "require": "./dist/index.cjs"
     }
   },
-  "main": "dist/index.cjs",        
-  "module": "dist/index.js",       
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "license": "MIT",
   "files": [
     "dist"
   ],
-  "type": "module",                 
+  "type": "module",
   "scripts": {
-    "build": "rollup -c && cp dist/index.d.ts dist/index.d.cts",
+    "build": "tsup",
     "clean": "rm -rf dist",
     "check-format": "prettier --check .",
-    "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
+    "check-exports": "attw --pack .",
     "format": "prettier --write \"**/*.{ts,tsx,js}\"",
     "prepublishOnly": "yarn build",
     "release": "standard-version",
     "publish:npm": "yarn publish",
     "release:publish": "yarn release && yarn publish:npm",
-    "ci": "yarn build && yarn check-format && yarn check-exports"
+    "lint": "tsc",
+    "ci": "yarn lint && yarn clean && yarn build && yarn check-format && yarn check-exports"
   },
   "dependencies": {
     "@nilfoundation/niljs": "0.14.0",
     "events": "^3.3.0",
     "ts-essentials": "^10.0.2",
-    "viem": "^2.21.7",
-    "tslib": "^2.5.3"             
+    "tslib": "^2.5.3",
+    "viem": "^2.21.7"
   },
   "peerDependencies": {
     "abitype": "^1.0.6"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.16.4",
-    "prettier": "^3.3.3",
-    "standard-version": "^9.5.0",
-    "typescript": "^5.6.2",
-    "rollup": "^3.0.0",
-    "@rollup/plugin-node-resolve": "^15.0.0",
     "@rollup/plugin-commonjs": "^24.0.0",
+    "@rollup/plugin-json": "^5.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
     "@rollup/plugin-typescript": "^8.0.0",
-    "@rollup/plugin-json": "^5.0.0",  
+    "prettier": "^3.3.3",
+    "rollup": "^3.0.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-terser": "^7.0.2"
+    "rollup-plugin-terser": "^7.0.2",
+    "standard-version": "^9.5.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.2"
   }
 }
