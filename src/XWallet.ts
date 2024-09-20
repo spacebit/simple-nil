@@ -13,7 +13,7 @@ import {
   waitTillCompleted,
 } from '@nilfoundation/niljs';
 import { type Abi, encodeFunctionData, hexToBigInt } from 'viem';
-import XWalletArtifacts from './abi/XWallet.json' assert { type: 'json' };
+import XWalletArtifacts from './abi/XWallet.json';
 import type {
   Currency,
   DeployParams,

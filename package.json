@@ -17,19 +17,26 @@
     "type": "git",
     "url": "git+https://github.com/spacebit/simple-nil.git"
   },
-  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "dist/index.cjs",        
+  "module": "dist/index.js",       
   "types": "dist/index.d.ts",
   "license": "MIT",
   "files": [
     "dist"
   ],
-  "type": "module",
+  "type": "module",                 
   "scripts": {
-    "build": "tsc",
+    "build": "rollup -c && cp dist/index.d.ts dist/index.d.cts",
     "clean": "rm -rf dist",
     "check-format": "prettier --check .",
     "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
-    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "format": "prettier --write \"**/*.{ts,tsx,js}\"",
     "prepublishOnly": "yarn build",
     "release": "standard-version",
     "publish:npm": "yarn publish",
@@ -40,7 +47,8 @@
     "@nilfoundation/niljs": "0.14.0",
     "events": "^3.3.0",
     "ts-essentials": "^10.0.2",
-    "viem": "^2.21.7"
+    "viem": "^2.21.7",
+    "tslib": "^2.5.3"             
   },
   "peerDependencies": {
     "abitype": "^1.0.6"
@@ -49,6 +57,13 @@
     "@arethetypeswrong/cli": "^0.16.4",
     "prettier": "^3.3.3",
     "standard-version": "^9.5.0",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "rollup": "^3.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-commonjs": "^24.0.0",
+    "@rollup/plugin-typescript": "^8.0.0",
+    "@rollup/plugin-json": "^5.0.0",  
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-terser": "^7.0.2"
   }
 }
