@@ -37,7 +37,8 @@
     "check-format": "prettier --check .",
     "check-exports": "attw --pack .",
     "format": "prettier --write \"**/*.{ts,tsx,js}\"",
-    "prepublishOnly": "yarn build",
+    "prepublishOnly": "yarn ci",
+    "local-release": "changeset version && changeset publish",
     "release": "standard-version",
     "publish:npm": "yarn publish",
     "release:publish": "yarn release && yarn publish:npm",
@@ -56,6 +57,7 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.16.4",
+    "@changesets/cli": "^2.27.8",
     "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-json": "^5.0.0",
     "@rollup/plugin-node-resolve": "^15.0.0",
