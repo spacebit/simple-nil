@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/spacebit/simple-nil/compare/v0.0.5...v0.1.1) (2024-09-20)
+
+
+### Bug Fixes
+
+* export types directly ([0d5b744](https://github.com/spacebit/simple-nil/commit/0d5b7444692c1b045923c0d04abf5a050941422d))
+
 ## [0.1.0](https://github.com/spacebit/simple-nil/compare/v0.0.5...v0.1.0) (2024-09-17)
 
 
