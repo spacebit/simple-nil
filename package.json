@@ -36,7 +36,7 @@
     "clean": "rm -rf dist",
     "check-format": "prettier --check .",
     "check-exports": "attw --pack .",
-    "format": "prettier --write \"**/*.{ts,tsx,js}\"",
+    "format": "prettier --write .",
     "prepublishOnly": "yarn ci",
     "local-release": "changeset version && changeset publish",
     "release": "standard-version",
