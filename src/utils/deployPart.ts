@@ -8,7 +8,7 @@ import {
   bytesToHex,
   calculateAddress,
   hexToBytes,
-  IDeployData,
+  type IDeployData,
 } from '@nilfoundation/niljs';
 
 const refineSalt = (salt: Uint8Array | bigint): Uint8Array => {

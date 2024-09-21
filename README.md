@@ -1,7 +1,7 @@
 # nil client utils
 
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
-[![npm version](https://img.shields.io/npm/v/simple-nil.svg)](https://www.npmjs.com/package/simple-nil)
+[![npm version](https://img.shields.io/npm/v/simple-nil.svg)](https://www.npmjs.com/package/@spacebit/simple-nil)
 
 
 This package is intended to simplify interaction with Nil blockchain during its DevNet phase and will probably be deprecated with the evolution of Nil.js
@@ -96,11 +96,10 @@ import { XWallet } from "simple-nil";
 import { XWalletConfig } from "simple-nil/types";
 
 const wallet = await XWallet.init({
-  address: "0x1234567890abcdef1234567890abcdef12345678",
+  address: "0x0000167890abcdef1234567890abcdef12345678",
   rpc: "https://rpc.endpoint.com",
   signerOrPrivateKey:
-    "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
-  shardId: 1,
+    "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890"
 });
 console.log("Initialized XWallet:", wallet.address);
 ```

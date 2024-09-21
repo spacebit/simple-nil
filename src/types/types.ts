@@ -1,10 +1,10 @@
 import {
-  Hex,
+  type Hex,
   LocalECDSAKeySigner,
   PublicClient,
-  SendMessageParams,
+  type SendMessageParams,
 } from '@nilfoundation/niljs';
-import { Abi } from 'viem';
+import type { Abi } from 'viem';
 
 export interface IClient {
   call: (
@@ -18,16 +18,19 @@ export interface IWallet {
   client: IClient;
 }
 
-export interface XClientConfig {
-  shardId: number;
+interface MinimalClientConfig {
   rpc: string;
   signerOrPrivateKey?: LocalECDSAKeySigner | Hex;
+}
+
+export interface XClientConfig extends MinimalClientConfig {
+  shardId: number;
 }
 
 /**
  * Options for initializing the XWallet.
  */
-export interface XWalletConfig extends Required<XClientConfig> {
+export interface XWalletConfig extends Required<MinimalClientConfig> {
   address: Hex;
 }
 

@@ -1,34 +1,34 @@
 import {
+  type BlockTag,
+  type Hex,
+  type ProcessedReceipt,
+  type SendMessageParams,
   addHexPrefix,
-  BlockTag,
   bytesToHex,
   Faucet,
   getPublicKey,
-  Hex,
+  getShardIdFromAddress,
   hexToBytes,
-  ProcessedReceipt,
   refineAddress,
-  SendMessageParams,
   waitTillCompleted,
 } from '@nilfoundation/niljs';
-import { Abi, encodeFunctionData, hexToBigInt } from 'viem';
-import {
+import { type Abi, encodeFunctionData, hexToBigInt } from 'viem';
+import XWalletArtifacts from './abi/XWallet.json';
+import type {
   Currency,
   DeployParams,
   IWallet,
   XClientConfig,
   XWalletConfig,
 } from './types';
-import { expectAllReceiptsSuccess } from './utils';
 import { prepareDeployPart } from './utils/deployPart';
+import { expectAllReceiptsSuccess } from './utils';
 import { XClient } from './XClient';
-import XWalletArtifacts from './abi/XWallet.json';
 
 export class XWallet implements IWallet {
   private constructor(
     readonly address: Hex,
     readonly client: XClient,
-    readonly shardId: number,
   ) {}
 
   static abi = XWalletArtifacts.abi as Abi;
@@ -36,12 +36,12 @@ export class XWallet implements IWallet {
 
   static async init(config: XWalletConfig) {
     const client = new XClient({
-      shardId: config.shardId,
+      shardId: getShardIdFromAddress(config.address),
       rpc: config.rpc,
       signerOrPrivateKey: config.signerOrPrivateKey,
     });
 
-    return new XWallet(config.address, client, config.shardId);
+    return new XWallet(config.address, client);
   }
 
   static async deploy(config: Required<XClientConfig>) {
@@ -179,6 +179,10 @@ export class XWallet implements IWallet {
   ): Promise<ProcessedReceipt[]> {
     const messageHash = await this._callExternal(calldata, isDeploy);
 
-    return waitTillCompleted(this.client.client, this.shardId, messageHash);
+    return waitTillCompleted(
+      this.client.client,
+      getShardIdFromAddress(this.address),
+      messageHash,
+    );
   }
 }
