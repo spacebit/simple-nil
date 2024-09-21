@@ -1,7 +1,7 @@
 # nil client utils
 
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
-[![npm version](https://img.shields.io/npm/v/simple-nil.svg)](https://www.npmjs.com/package/simple-nil)
+[![npm version](https://img.shields.io/npm/v/simple-nil.svg)](https://www.npmjs.com/package/@spacebit/simple-nil)
 
 
 This package is intended to simplify interaction with Nil blockchain during its DevNet phase and will probably be deprecated with the evolution of Nil.js
