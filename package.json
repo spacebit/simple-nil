@@ -37,6 +37,7 @@
     "check-format": "prettier --check .",
     "check-exports": "attw --pack .",
     "format": "prettier --write .",
+    "changeset": "npx changeset",
     "prepublishOnly": "yarn ci",
     "local-release": "changeset version && changeset publish",
     "lint": "tsc",
