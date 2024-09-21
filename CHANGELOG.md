@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3
+
+### Patch Changes
+
+- 1e2a71a: Update XWallet artifacts
+
 ## 0.1.2
 
 ### Patch Changes
