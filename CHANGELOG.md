@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0
+
+### Minor Changes
+
+- 71831af: move package to organization
+
 ## 0.1.3
 
 ### Patch Changes
