@@ -1,7 +1,7 @@
 # nil client utils
 
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
-[![npm version](https://img.shields.io/npm/v/simple-nil.svg)](https://www.npmjs.com/package/@spacebit/simple-nil)
+[![npm version](https://img.shields.io/npm/v/@spacebit/simple-nil.svg)](https://www.npmjs.com/package/@spacebit/simple-nil)
 
 
 This package is intended to simplify interaction with Nil blockchain during its DevNet phase and will probably be deprecated with the evolution of Nil.js
@@ -40,7 +40,7 @@ This package is intended to simplify interaction with Nil blockchain during its 
 Ensure you have [Yarn](https://yarnpkg.com/) installed. Then, install the package using Yarn:
 
 ```bash
-yarn add simple-nil
+yarn add @spacebit/simple-nil
 ```
 
 ### Peer Dependencies

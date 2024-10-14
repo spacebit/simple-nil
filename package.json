@@ -44,14 +44,10 @@
     "ci": "yarn lint && yarn clean && yarn build && yarn check-format && yarn check-exports"
   },
   "dependencies": {
-    "@nilfoundation/niljs": "0.14.0",
-    "events": "^3.3.0",
+    "@nilfoundation/niljs": "0.15.0",
     "ts-essentials": "^10.0.2",
     "tslib": "^2.5.3",
     "viem": "^2.21.7"
-  },
-  "peerDependencies": {
-    "abitype": "^1.0.6"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.16.4",
