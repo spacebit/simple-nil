@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1
+
+### Patch Changes
+
+- cda61bd: Update niljs
+
 ## 0.2.0
 
 ### Minor Changes

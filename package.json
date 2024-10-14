@@ -1,6 +1,6 @@
 {
   "name": "@spacebit/simple-nil",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "nil-chain client side utils",
   "keywords": [
     "nil",
