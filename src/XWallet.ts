@@ -99,7 +99,7 @@ export class XWallet implements IWallet {
     });
 
     const receipts = await this._callWaitResult(createCurrencyCalldata);
-    const currencyId = hexToBigInt(this.address);
+    const currencyId = this.address;
 
     return { receipts, currencyId };
   }
