@@ -44,7 +44,7 @@
     "ci": "yarn lint && yarn clean && yarn build && yarn check-format && yarn check-exports"
   },
   "dependencies": {
-    "@nilfoundation/niljs": "0.15.0",
+    "@nilfoundation/niljs": "0.16.0",
     "ts-essentials": "^10.0.2",
     "tslib": "^2.5.3",
     "viem": "^2.21.7"

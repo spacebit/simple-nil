@@ -38,7 +38,7 @@ export interface XWalletConfig extends Required<MinimalClientConfig> {
  * Represents a currency with an ID and amount.
  */
 export type Currency = {
-  id: bigint;
+  id: Hex;
   amount: bigint;
 };
 
