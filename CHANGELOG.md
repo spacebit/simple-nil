@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.2
+
+### Patch Changes
+
+- 510f884: Update XWallet abi
+
 ## 0.3.1
 
 ### Patch Changes
