@@ -12,7 +12,7 @@ import {
   refineAddress,
   waitTillCompleted,
 } from '@nilfoundation/niljs';
-import { type Abi, encodeFunctionData, hexToBigInt } from 'viem';
+import { type Abi, decodeFunctionResult, encodeFunctionData } from 'viem';
 import XWalletArtifacts from './abi/XWallet.json';
 import type {
   Currency,
@@ -91,6 +91,28 @@ export class XWallet implements IWallet {
     return this._callWaitResult(approveCalldata);
   }
 
+  async allowance(spender: Hex, currency: Currency) {
+    const result = await this.client.call(
+      {
+        to: this.address,
+        data: encodeFunctionData({
+          abi: XWallet.abi,
+          functionName: 'allowance',
+          args: [spender, currency],
+        }),
+      },
+      'latest',
+    );
+
+    const decoded = decodeFunctionResult({
+      abi: XWallet.abi,
+      functionName: 'allowance',
+      data: result.data,
+    });
+
+    return BigInt(decoded as string);
+  }
+
   async createCurrency(amount: bigint) {
     const createCurrencyCalldata = encodeFunctionData({
       abi: XWallet.abi,
@@ -99,7 +121,7 @@ export class XWallet implements IWallet {
     });
 
     const receipts = await this._callWaitResult(createCurrencyCalldata);
-    const currencyId = hexToBigInt(this.address);
+    const currencyId = this.address;
 
     return { receipts, currencyId };
   }
@@ -169,10 +191,6 @@ export class XWallet implements IWallet {
     return this._callWaitResult(callData);
   }
 
-  private async _callExternal(calldata: Hex, isDeploy = false) {
-    return this.client.sendRawMessage(this.address, calldata, isDeploy);
-  }
-
   private async _callWaitResult(
     calldata: Hex,
     isDeploy = false,
@@ -184,5 +202,9 @@ export class XWallet implements IWallet {
       getShardIdFromAddress(this.address),
       messageHash,
     );
+  }
+
+  private async _callExternal(calldata: Hex, isDeploy = false) {
+    return this.client.sendRawMessage(this.address, calldata, isDeploy);
   }
 }

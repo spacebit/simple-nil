@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.3.2
+
+### Patch Changes
+
+- 510f884: Update XWallet abi
+
+## 0.3.1
+
+### Patch Changes
+
+- a83ebd9: Fix: createCurrency returns address
+
+## 0.3.0
+
+### Minor Changes
+
+- 5d0f473: Use address type for Currency
+
+## 0.2.1
+
+### Patch Changes
+
+- cda61bd: Update niljs
+
 ## 0.2.0
 
 ### Minor Changes
